@@ -2,7 +2,7 @@
 title: "Prompt Caching Cut Our AI Costs by 70%"
 date: "2025-12-15"
 excerpt: "We were spending $50K/month on AI. One architectural change dropped it to $15K. Here's exactly how."
-coverImage: "/images/prompt_caching.png"
+coverImage: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=800&q=80"
 tags: ["AI", "Cost Optimization"]
 author: "Yuval Avidani"
 ---

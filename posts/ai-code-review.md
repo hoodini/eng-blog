@@ -2,7 +2,7 @@
 title: "How I Replaced 80% of Code Reviews with AI"
 date: "2025-12-25"
 excerpt: "Controversial take: AI code review is better than most human reviews. Here's my automated pipeline."
-coverImage: "/images/ai_code_review.png"
+coverImage: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&q=80"
 tags: ["AI", "DevOps"]
 author: "Yuval Avidani"
 ---

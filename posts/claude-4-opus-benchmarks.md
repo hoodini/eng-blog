@@ -2,7 +2,7 @@
 title: "Claude 4 Opus vs GPT-5: The Ultimate Developer Benchmark"
 date: "2026-01-05"
 excerpt: "We tested Claude 4 Opus and GPT-5 across 15 real-world coding tasks. The results might surprise you."
-coverImage: "/images/claude_vs_gpt.png"
+coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80"
 tags: ["AI", "Benchmarks"]
 author: "Yuval Avidani"
 ---

@@ -2,7 +2,7 @@
 title: "OpenAI Codex CLI: AI-Powered Terminal is Here"
 date: "2026-01-01"
 excerpt: "OpenAI just open-sourced their terminal AI. It's changing how I interact with the command line forever."
-coverImage: "/images/codex_cli.png"
+coverImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&q=80"
 tags: ["AI", "Tools"]
 author: "Yuval Avidani"
 ---

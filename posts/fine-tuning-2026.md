@@ -2,7 +2,7 @@
 title: "Fine-Tuning in 2026: When and How to Customize LLMs"
 date: "2025-12-22"
 excerpt: "RAG isn't always the answer. Sometimes you need a model that just knows your domain. Here's the modern guide."
-coverImage: "/images/fine_tuning.png"
+coverImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80"
 tags: ["AI", "MLOps"]
 author: "Yuval Avidani"
 ---

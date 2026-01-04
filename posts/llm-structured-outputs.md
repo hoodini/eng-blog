@@ -2,7 +2,7 @@
 title: "Structured Outputs: The End of JSON Parsing Nightmares"
 date: "2025-12-28"
 excerpt: "Stop wrestling with regex and pray-parsing. Modern LLMs guarantee valid JSON output. Here's how."
-coverImage: "/images/structured_outputs.png"
+coverImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80"
 tags: ["AI", "Tutorials"]
 author: "Yuval Avidani"
 ---

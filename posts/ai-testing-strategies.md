@@ -2,7 +2,7 @@
 title: "Testing AI Applications: A Practical Framework"
 date: "2025-12-18"
 excerpt: "Your AI app works in demos but fails in production. Here's how to test non-deterministic systems."
-coverImage: "/images/ai_testing.png"
+coverImage: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&q=80"
 tags: ["AI", "Testing"]
 author: "Yuval Avidani"
 ---

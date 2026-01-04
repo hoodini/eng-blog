@@ -2,7 +2,7 @@
 title: "Model Context Protocol (MCP): The New Standard for AI Tools"
 date: "2026-01-03"
 excerpt: "Anthropic's MCP is becoming the USB-C of AI integrations. Here's how to build your first MCP server."
-coverImage: "/images/mcp_protocol.png"
+coverImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80"
 tags: ["AI", "Tutorials"]
 author: "Yuval Avidani"
 ---

@@ -2,7 +2,7 @@
 title: "RAG is Dead. Long Live Agentic RAG."
 date: "2026-01-02"
 excerpt: "Traditional RAG pipelines are hitting a wall. The next evolution combines retrieval with autonomous agents."
-coverImage: "/images/agentic_rag.png"
+coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80"
 tags: ["AI", "Architecture"]
 author: "Yuval Avidani"
 ---

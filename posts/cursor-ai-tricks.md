@@ -2,7 +2,7 @@
 title: "15 Cursor AI Tricks That 10x Your Coding Speed"
 date: "2026-01-04"
 excerpt: "Stop using Cursor like a chatbot. These power-user techniques will transform how you code."
-coverImage: "/images/cursor_tricks.png"
+coverImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80"
 tags: ["AI", "Productivity"]
 author: "Yuval Avidani"
 ---
