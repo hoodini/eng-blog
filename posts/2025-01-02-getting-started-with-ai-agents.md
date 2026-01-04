@@ -2,7 +2,7 @@
 title: 'Getting Started with AI Agents: A Practical Guide'
 date: '2025-01-02'
 excerpt: 'Learn how to build your first AI agent from scratch. This comprehensive guide covers tools, memory, and multi-agent systems.'
-coverImage: ''
+coverImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&h=750&fit=crop'
 tags:
   - ai
   - tutorials

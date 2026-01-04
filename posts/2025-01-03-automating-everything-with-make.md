@@ -2,7 +2,7 @@
 title: 'Automating Everything: Building No-Code Workflows with Make.com'
 date: '2025-01-03'
 excerpt: 'Discover how to automate your entire workflow using Make.com. From simple tasks to complex AI pipelines.'
-coverImage: ''
+coverImage: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=1200&h=750&fit=crop'
 tags:
   - automation
   - tutorials

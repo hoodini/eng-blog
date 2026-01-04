@@ -2,62 +2,67 @@
 
 import Link from 'next/link';
 import { Post } from '@/lib/posts';
-import { format } from 'date-fns';
 
 interface PostCardProps {
   post: Post;
+  className?: string; // Allow custom classes
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, className = '' }: PostCardProps) {
   return (
-    <Link href={`/posts/${post.slug}`}>
-      <article className="group h-full glass-effect rounded-2xl overflow-hidden hover-lift">
-        {/* Image */}
-        {post.coverImage && (
-          <div className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-600/20 to-purple-600/20">
-            <img
-              src={post.coverImage}
-              alt={post.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
+    <Link
+      href={`/posts/${post.slug}`}
+      className={`group flex flex-col h-full apple-card ${className}`}
+    >
+      {/* Image Container */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+        {post.coverImage ? (
+          <img
+            src={post.coverImage}
+            alt={post.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+            <span className="text-4xl"></span>
           </div>
         )}
 
-        {/* Content */}
-        <div className="p-6">
-          {/* Tags */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-3">
-              {post.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-1 rounded-md bg-white/5 text-xs font-medium text-gray-300"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Title */}
-          <h3 className="text-xl font-bold mb-2 group-hover:gradient-text transition-all line-clamp-2">
-            {post.title}
-          </h3>
-
-          {/* Excerpt */}
-          {post.excerpt && (
-            <p className="text-gray-400 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
-          )}
-
-          {/* Meta */}
-          <div className="flex items-center justify-between text-xs text-gray-500">
-            <time dateTime={post.date}>
-              {format(new Date(post.date), 'MMMM d, yyyy')}
-            </time>
-            {post.readingTime && <span>{post.readingTime} min read</span>}
+        {/* Floating Tag */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
+            <span className="text-[10px] font-bold tracking-wider uppercase text-[#1d1d1f]">
+              {post.tags[0]}
+            </span>
           </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col flex-grow p-6">
+        <div className="mb-2 flex items-center gap-2 text-xs font-medium text-[var(--muted)]">
+          <time dateTime={post.date}>{post.date}</time>
+          <span>•</span>
+          <span>{post.readingTime} min read</span>
         </div>
-      </article>
+
+        <h3 className="text-xl font-bold tracking-tight text-[var(--foreground)] mb-3 leading-snug group-hover:text-[#0071e3] transition-colors">
+          {post.title}
+        </h3>
+
+        <p className="text-sm text-[var(--muted)] line-clamp-3 mb-4 flex-grow">
+          {post.excerpt}
+        </p>
+
+        {/* Author or Footer of card */}
+        <div className="flex items-center gap-2 mt-auto pt-4 border-t border-gray-50">
+          <div className="w-5 h-5 rounded-full bg-gray-200 overflow-hidden">
+            {/* Placeholder avatar or author image if available */}
+            <div className="w-full h-full bg-gradient-to-tr from-blue-400 to-emerald-400"></div>
+          </div>
+          <span className="text-xs font-semibold text-[var(--foreground)]">{post.author}</span>
+        </div>
+      </div>
     </Link>
   );
 }

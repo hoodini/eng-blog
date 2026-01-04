@@ -2,7 +2,7 @@
 title: 'Welcome to My Blog: AI, Automation & Code'
 date: '2025-01-01'
 excerpt: 'Introducing my new blog focused on AI, automation, and modern development practices. Join me on this journey!'
-coverImage: ''
+coverImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=750&fit=crop'
 tags:
   - ai
   - automation
