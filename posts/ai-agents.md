@@ -2,7 +2,7 @@
 title: "The Rise of AI Agents: From Chatbots to Autonomous Workers"
 date: "2026-01-02"
 excerpt: "Why 2026 is the year of the autonomous agent. We move beyond simple RAG to agents that can plan, execute, and correct themselves."
-coverImage: "https://placehold.co/1200x630/1d1d1f/ffffff?text=AI+Agents"
+coverImage: "/images/ai_agents_cover.png"
 tags: ["AI", "Agents"]
 author: "Yuval Avidani"
 ---

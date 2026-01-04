@@ -2,7 +2,7 @@
 title: "Vibe Coding: The New Way to Build"
 date: "2026-01-01"
 excerpt: "It's not just about logic anymore. It's about the flow. How LLMs allow us to code at the speed of thought."
-coverImage: "https://placehold.co/1200x630/0071e3/ffffff?text=Vibe+Coding"
+coverImage: "/images/vibe_coding_cover.png"
 tags: ["Code", "Philosophy"]
 author: "Yuval Avidani"
 ---

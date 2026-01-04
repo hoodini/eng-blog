@@ -2,7 +2,7 @@
 title: "Mastering Next.js 15"
 date: "2025-12-28"
 excerpt: "A deep dive into the stability of Next.js 15 and why Turbopack changes the game for large monorepos."
-coverImage: "https://placehold.co/1200x630/000000/ffffff?text=Next.js+15"
+coverImage: "/images/nextjs_cover.png"
 tags: ["Next.js", "Code"]
 author: "Yuval Avidani"
 ---

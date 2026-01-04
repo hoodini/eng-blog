@@ -2,7 +2,7 @@
 title: "Self-Hosting LLMs with Ollama"
 date: "2025-12-20"
 excerpt: "Stop paying OpenAI. Run Llama 3 on your MacBook Pro and keep your data private."
-coverImage: "https://placehold.co/1200x630/32a852/ffffff?text=Local+LLMs"
+coverImage: "/images/local_llms_cover.png"
 tags: ["AI", "Tutorials"]
 author: "Yuval Avidani"
 ---

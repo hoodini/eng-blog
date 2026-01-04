@@ -2,7 +2,7 @@
 title: "Apple Vision Pro: A Developer's Perspective"
 date: "2025-12-25"
 excerpt: "Is spatial computing dead? Far from it. Here is what I have built and learned over the last 6 months."
-coverImage: "https://placehold.co/1200x630/f56300/ffffff?text=Vision+Pro"
+coverImage: "/images/vision_pro_cover.png"
 tags: ["Apple", "VR"]
 author: "Yuval Avidani"
 ---
