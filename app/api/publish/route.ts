@@ -1,9 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createPost } from '@/lib/posts';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 
 // Rate limiting (simple in-memory implementation)
 const requestLog = new Map<string, number[]>();
@@ -26,12 +21,85 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
+function createSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+function createMarkdownContent(postData: {
+  title: string;
+  content: string;
+  excerpt?: string;
+  coverImage?: string;
+  tags?: string[];
+  date: string;
+}): string {
+  const frontmatter = `---
+title: "${postData.title.replace(/"/g, '\\"')}"
+date: "${postData.date}"
+excerpt: "${(postData.excerpt || postData.content.slice(0, 160) + '...').replace(/"/g, '\\"')}"
+coverImage: "${postData.coverImage || ''}"
+tags: [${(postData.tags || []).map(t => `"${t}"`).join(', ')}]
+author: "Yuval Avidani"
+---
+
+${postData.content}`;
+
+  return frontmatter;
+}
+
+async function createGitHubFile(
+  fileName: string,
+  content: string
+): Promise<{ success: boolean; error?: string }> {
+  const token = process.env.GITHUB_TOKEN;
+  const owner = process.env.GITHUB_OWNER || 'hoodini';
+  const repo = process.env.GITHUB_REPO || 'eng-blog';
+  const branch = process.env.GITHUB_BRANCH || 'master';
+
+  if (!token) {
+    return { success: false, error: 'GitHub token not configured' };
+  }
+
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/posts/${fileName}`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github.v3+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+      body: JSON.stringify({
+        message: `Add new post: ${fileName}`,
+        content: Buffer.from(content).toString('base64'),
+        branch,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('GitHub API error:', errorData);
+      return { success: false, error: errorData.message || 'GitHub API error' };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error('GitHub API request failed:', error);
+    return { success: false, error: 'Failed to connect to GitHub API' };
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
     const ip = request.headers.get('x-forwarded-for') ||
-               request.headers.get('x-real-ip') ||
-               'unknown';
+      request.headers.get('x-real-ip') ||
+      'unknown';
 
     // Check rate limit
     if (!checkRateLimit(ip)) {
@@ -78,39 +146,41 @@ export async function POST(request: NextRequest) {
 
     // Sanitize tags
     const tags = Array.isArray(body.tags)
-      ? body.tags.filter((tag: any) => typeof tag === 'string').slice(0, 10)
+      ? body.tags.filter((tag: string) => typeof tag === 'string').slice(0, 10)
       : [];
 
-    // Create the post
-    const slug = await createPost({
+    // Generate slug and date
+    const slug = createSlug(body.title);
+    const date = body.date || new Date().toISOString().split('T')[0];
+    const fileName = `${date}-${slug}.md`;
+
+    // Create markdown content
+    const markdownContent = createMarkdownContent({
       title: body.title,
       content: body.content,
       excerpt: body.excerpt,
       coverImage: body.coverImage,
       tags,
-      date: body.date,
+      date,
     });
 
-    // Git commit and push (if in production)
-    if (process.env.NODE_ENV === 'production' || process.env.AUTO_COMMIT === 'true') {
-      try {
-        const fileName = `${body.date || new Date().toISOString().split('T')[0]}-${slug}.md`;
-        await execAsync(`git add posts/${fileName}`);
-        await execAsync(`git commit -m "Add new post: ${body.title}"`);
-        await execAsync('git push origin main');
+    // Create file in GitHub
+    const result = await createGitHubFile(fileName, markdownContent);
 
-        console.log(`Post published and pushed to GitHub: ${slug}`);
-      } catch (gitError) {
-        console.error('Git operation failed:', gitError);
-        // Don't fail the request if git fails
-      }
+    if (!result.success) {
+      return NextResponse.json(
+        { error: result.error || 'Failed to create post in repository.' },
+        { status: 500 }
+      );
     }
+
+    console.log(`Post published via GitHub API: ${slug}`);
 
     return NextResponse.json({
       success: true,
       slug,
-      message: 'Post published successfully!',
-      url: `/posts/${slug}`,
+      message: 'Post published successfully! Site will redeploy shortly.',
+      url: `/posts/${date}-${slug}`,
     });
 
   } catch (error) {
