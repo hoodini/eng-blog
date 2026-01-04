@@ -11,7 +11,7 @@ author: "Yuval Avidani"
 
 Next.js 14 was ambitious - introducing Server Actions, Partial Prerendering, and pushing the boundaries of what a React framework could do. Next.js 15 feels different. This is the stability release where Vercel took a breath, fixed rough edges, and delivered the production-ready infrastructure that enterprise teams have been demanding.
 
-This matters to developers because Next.js has become the de facto standard for React applications. If you're building a web app in 2025-2026, you're probably using Next.js. Understanding what changed in version 15 isn't academic - it's knowing which patterns are now safe to use in production, which performance bottlenecks disappeared, and how to leverage the new capabilities that make our applications faster and more maintainable.
+This matters to developers because Next.js has become the de facto standard for React applications. If you're building a web app today, you're likely using Next.js. Understanding what changed in version 15 isn't academic - it's knowing which patterns are now safe to use in production, which performance bottlenecks disappeared, and how to leverage the new capabilities that make our applications faster and more maintainable.
 
 ## The Headline Feature: Turbopack Goes Stable
 
