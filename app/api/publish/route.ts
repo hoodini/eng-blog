@@ -151,7 +151,17 @@ export async function POST(request: NextRequest) {
 
     // Generate slug and date
     const slug = createSlug(body.title);
-    const date = body.date || new Date().toISOString().split('T')[0];
+
+    // Parse date - handle ISO timestamps or date strings, extract just YYYY-MM-DD
+    let date: string;
+    if (body.date) {
+      // If it's an ISO timestamp like "2026-01-04T22:03:05.457Z", extract just the date
+      const dateMatch = body.date.match(/^\d{4}-\d{2}-\d{2}/);
+      date = dateMatch ? dateMatch[0] : new Date().toISOString().split('T')[0];
+    } else {
+      date = new Date().toISOString().split('T')[0];
+    }
+
     const fileName = `${date}-${slug}.md`;
 
     // Create markdown content
