@@ -1,23 +1,6 @@
-@import "tailwindcss";
-
-/* Cache bust: v2 */
-
-@theme {
-  --font-sans: var(--font-inter);
-  --color-background: #000000;
-  --color-foreground: #ffffff;
-
-  /* Color palette */
-  --color-blue-400: #60a5fa;
-  --color-blue-500: #3b82f6;
-  --color-purple-400: #c084fc;
-  --color-purple-500: #a855f7;
-  --color-purple-600: #9333ea;
-  --color-pink-400: #f472b6;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   margin: 0;
