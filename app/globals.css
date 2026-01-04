@@ -4,20 +4,18 @@
   --font-sans: var(--font-inter);
   --color-background: #000000;
   --color-foreground: #ffffff;
+  
+  /* Premium Apple-Style Palette */
+  --color-accent: #0071e3; /* Apple Blue */
+  --color-secondary: #86868b;
+  --color-surface: #1d1d1f;
+  --color-surface-hover: #2d2d2f;
+}
 
-  /* Extended color palette */
-  --color-blue-400: #60a5fa;
-  --color-blue-500: #3b82f6;
-  --color-blue-600: #2563eb;
-  --color-purple-400: #c084fc;
-  --color-purple-500: #a855f7;
-  --color-purple-600: #9333ea;
-  --color-pink-400: #f472b6;
-  --color-pink-600: #db2777;
-  --color-orange-400: #fb923c;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
+:root {
+  --background: #000000;
+  --foreground: #f5f5f7;
+  --card-bg: #1d1d1f;
 }
 
 * {
@@ -27,35 +25,33 @@
 }
 
 body {
-  color: #ffffff;
-  background: #000000;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
-/* Custom utility classes */
-.gradient-text {
-  background: linear-gradient(to right, #60a5fa, #c084fc, #f472b6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Typography Utilities */
+.tracking-tight-custom {
+  letter-spacing: -0.02em;
 }
 
-.glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Subtle Glass Effect */
+.glass-panel {
+  background: rgba(29, 29, 31, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.hover-lift {
-  transition: all 0.3s ease;
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
 }
 
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+.card-hover:hover {
+  transform: scale(1.02);
 }
 
 html {
@@ -63,40 +59,42 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 5px;
+  background: #424245;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #6e6e73;
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
+  background: #0071e3;
   color: white;
 }
 
-/* Ensure prose styles work */
+/* Prose for Content */
 .prose {
-  color: #d1d5db;
+  color: #a1a1a6;
   max-width: 65ch;
+  line-height: 1.7;
 }
 
 .prose :where(h1, h2, h3, h4, h5, h6) {
-  color: #ffffff;
-  font-weight: 700;
+  color: #f5f5f7;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 .prose :where(a) {
-  color: #60a5fa;
+  color: #2997ff;
   text-decoration: none;
 }
 
@@ -105,37 +103,40 @@ html {
 }
 
 .prose :where(strong) {
-  color: #ffffff;
+  color: #f5f5f7;
   font-weight: 600;
 }
 
 .prose :where(code) {
-  color: #c084fc;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.125rem 0.25rem;
-  border-radius: 0.25rem;
+  color: #f5f5f7;
+  background: #333336;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
+  font-size: 0.875em;
 }
 
 .prose :where(pre) {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1d1d1f;
+  border: 1px solid #424245;
+  border-radius: 0.75rem;
 }
 
 .prose :where(blockquote) {
-  border-left: 4px solid #9333ea;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.25rem 0;
+  border-left: 4px solid #424245;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #86868b;
 }
 
 .prose :where(img) {
-  border-radius: 0.75rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
 .prose :where(ul, ol) {
-  color: #d1d5db;
+  padding-left: 1.5rem;
 }
 
 .prose :where(li)::marker {
-  color: #c084fc;
+  color: #6e6e73;
 }
