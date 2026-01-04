@@ -3,8 +3,5 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "regions": ["iad1"],
-  "env": {
-    "PUBLISH_SECRET": "@publish-secret"
-  }
+  "regions": ["iad1"]
 }
