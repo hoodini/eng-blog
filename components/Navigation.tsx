@@ -32,11 +32,20 @@ export default function Navigation() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-[19px] font-semibold tracking-tight text-[var(--foreground)] hover:opacity-70 transition-opacity z-50"
+            className="flex items-center gap-2 group z-50"
           >
-             Newsroom
-            {/* Using Apple logo for "Newsroom" feel or just Yuval's brand */}
-            <span className="sr-only">Home</span>
+            <div className="w-8 h-8 rounded-[8px] bg-gradient-to-br from-[#1d1d1f] to-[#434344] flex items-center justify-center text-white shadow-sm group-hover:shadow-md transition-all">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="18" r="2" />
+                <circle cx="6" cy="6" r="2" />
+                <circle cx="18" cy="6" r="2" />
+                <path d="M12 16L6 8" />
+                <path d="M12 16L18 8" />
+              </svg>
+            </div>
+            <span className="text-[19px] font-bold tracking-tight text-[var(--foreground)] group-hover:opacity-70 transition-opacity">
+              10x AI
+            </span>
           </Link>
 
           {/* Desktop Nav */}

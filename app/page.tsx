@@ -22,11 +22,13 @@ export default async function Home() {
     <main className="min-h-screen bg-white pt-24 pb-20">
       <div className="container-width">
         {/* Header Title */}
-        <div className="py-8 border-b border-[var(--card-border)] mb-12">
-          <h1 className="headline-large text-[var(--foreground)]">Newsroom</h1>
-          <p className="mt-4 text-xl text-[var(--muted)] max-w-2xl">
-            Insights on AI, automation, and code. Building generative AI solutions for the future.
-          </p>
+        <div className="py-8 border-b border-[var(--card-border)] mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <h1 className="headline-large text-[var(--foreground)]">10x AI Newsroom</h1>
+            <p className="mt-4 text-xl text-[var(--muted)] max-w-2xl">
+              Insights on AI, automation, and code. Building generative AI solutions for the future.
+            </p>
+          </div>
         </div>
 
         {/* Featured Section */}

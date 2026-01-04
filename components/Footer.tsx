@@ -7,7 +7,10 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
 
           <div>
-            <h3 className="text-xl font-bold text-[var(--foreground)] mb-2 tracking-tight">YUV.AI</h3>
+            <h3 className="text-xl font-bold text-[var(--foreground)] mb-2 tracking-tight flex items-center gap-2">
+              <span className="w-4 h-4 rounded-full bg-[var(--foreground)]"></span>
+              10x AI
+            </h3>
             <p className="text-[var(--muted)] text-sm max-w-md">
               Engineering the future with AI Agents & Automation.
             </p>
