@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import TurndownService from 'turndown';
 
 // Rate limiting (simple in-memory implementation)
 const requestLog = new Map<string, number[]>();
@@ -94,6 +95,77 @@ async function createGitHubFile(
   }
 }
 
+// Convert HTML to Markdown
+function htmlToMarkdown(html: string): string {
+  const turndownService = new TurndownService({
+    headingStyle: 'atx',
+    codeBlockStyle: 'fenced',
+  });
+
+  // Add custom rule for code blocks to preserve them
+  turndownService.addRule('codeBlock', {
+    filter: ['code'],
+    replacement: function(content, node) {
+      // If it's a block-level code element, wrap in triple backticks
+      if ((node as HTMLElement).parentElement?.tagName === 'P') {
+        return '\n```\n' + content + '\n```\n';
+      }
+      return '`' + content + '`';
+    }
+  });
+
+  return turndownService.turndown(html);
+}
+
+// Extract post data from different formats
+function extractPostData(body: any): {
+  title: string;
+  content: string;
+  excerpt?: string;
+  coverImage?: string;
+  tags?: string[];
+  slug?: string;
+} | null {
+  // Format 1: Direct format (title, content in root)
+  if (body.title && body.content) {
+    return {
+      title: body.title,
+      content: body.content,
+      excerpt: body.excerpt,
+      coverImage: body.coverImage,
+      tags: body.tags,
+      slug: body.slug,
+    };
+  }
+
+  // Format 2: Make.com format with jsonResponse.ghost
+  if (body.jsonResponse?.ghost) {
+    const ghost = body.jsonResponse.ghost;
+    return {
+      title: ghost.title,
+      content: ghost.html ? htmlToMarkdown(ghost.html) : '',
+      excerpt: ghost.custom_excerpt,
+      coverImage: ghost.cover_image || ghost.coverImage,
+      tags: ghost.tags,
+      slug: ghost.slug,
+    };
+  }
+
+  // Format 3: Nested ghost object
+  if (body.ghost) {
+    return {
+      title: body.ghost.title,
+      content: body.ghost.html ? htmlToMarkdown(body.ghost.html) : '',
+      excerpt: body.ghost.custom_excerpt,
+      coverImage: body.ghost.cover_image || body.ghost.coverImage,
+      tags: body.ghost.tags,
+      slug: body.ghost.slug,
+    };
+  }
+
+  return null;
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
@@ -121,8 +193,11 @@ export async function POST(request: NextRequest) {
     // Parse request body
     const body = await request.json();
 
+    // Extract post data from various formats
+    const postData = extractPostData(body);
+
     // Validate required fields
-    if (!body.title || !body.content) {
+    if (!postData || !postData.title || !postData.content) {
       return NextResponse.json(
         { error: 'Missing required fields: title and content are required.' },
         { status: 400 }
@@ -130,14 +205,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate field lengths
-    if (body.title.length > 200) {
+    if (postData.title.length > 200) {
       return NextResponse.json(
         { error: 'Title too long. Maximum 200 characters.' },
         { status: 400 }
       );
     }
 
-    if (body.content.length > 100000) {
+    if (postData.content.length > 100000) {
       return NextResponse.json(
         { error: 'Content too long. Maximum 100KB.' },
         { status: 400 }
@@ -145,12 +220,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Sanitize tags
-    const tags = Array.isArray(body.tags)
-      ? body.tags.filter((tag: string) => typeof tag === 'string').slice(0, 10)
+    const tags = Array.isArray(postData.tags)
+      ? postData.tags.filter((tag: string) => typeof tag === 'string').slice(0, 10)
       : [];
 
     // Generate slug and date
-    const slug = createSlug(body.title);
+    const slug = postData.slug || createSlug(postData.title);
 
     // Parse date - handle ISO timestamps or date strings, extract just YYYY-MM-DD
     let date: string;
@@ -166,10 +241,10 @@ export async function POST(request: NextRequest) {
 
     // Create markdown content
     const markdownContent = createMarkdownContent({
-      title: body.title,
-      content: body.content,
-      excerpt: body.excerpt,
-      coverImage: body.coverImage,
+      title: postData.title,
+      content: postData.content,
+      excerpt: postData.excerpt,
+      coverImage: postData.coverImage,
       tags,
       date,
     });

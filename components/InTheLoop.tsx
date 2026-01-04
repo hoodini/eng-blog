@@ -11,8 +11,8 @@ export default function InTheLoop({ posts }: InTheLoopProps) {
         <section className="py-12 border-b border-[var(--card-border)]">
             <SectionHeader title="In the Loop" action={{ label: 'See All', href: '/archive' }} />
 
-            <div className="overflow-x-auto pb-6 -mx-6 px-6 scrollbar-hide">
-                <div className="flex gap-5 w-max">
+            <div className="overflow-x-auto pb-6 scrollbar-hide">
+                <div className="flex gap-5 w-max pl-5 sm:pl-6 md:pl-8 pr-5 sm:pr-6 md:pr-8">
                     {posts.slice(0, 5).map((post) => (
                         <Link
                             key={post.slug}

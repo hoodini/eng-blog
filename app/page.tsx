@@ -19,7 +19,7 @@ export default async function Home() {
   // For now, let's just be smart: if few posts, just grid them.
 
   return (
-    <main className="min-h-screen bg-white pt-24 pb-20">
+    <main className="min-h-screen pt-24 pb-20">
       <div className="container-width">
         {/* Header Title */}
         <div className="py-8 border-b border-[var(--card-border)] mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">

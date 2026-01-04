@@ -1,0 +1,11 @@
+{
+  "jsonResponse": {
+    "ghost": {
+      "title": "Pathway - The Python Framework That Keeps Your AI From Working With Stale Data",
+      "slug": "pathway",
+      "tags": ["github", "open-source", "python", "ai", "etl", "real-time"],
+      "custom_excerpt": "Pathway is a high-performance Python ETL framework for stream processing and real-time AI pipelines.",
+      "html": "<h2>Finally, a Way to Feed Live Data Into AI</h2>\n<p>The project <a href=\"https://github.com/pathwaycom/pathway\">Pathway</a> solves the problem of keeping AI systems updated with fresh data in real-time.</p>\n<p>This matters because we're rushing to deploy AI agents that make real decisions.</p>\n<h2>The Problem We All Know Too Well</h2>\n<p>Here's the current state: you build a beautiful RAG system. You index your documents, generate embeddings, store them in a vector database, and everything works perfectly. Then reality hits.</p>"
+    }
+  }
+}

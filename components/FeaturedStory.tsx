@@ -8,11 +8,11 @@ interface FeaturedStoryProps {
 export default function FeaturedStory({ post }: FeaturedStoryProps) {
     return (
         <Link href={`/posts/${post.slug}`} className="group block mb-16">
-            <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm border border-[var(--card-border)] group-hover:shadow-2xl transition-all duration-500 ease-out">
-                <div className="grid md:grid-cols-12 gap-0">
+            <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg border border-[var(--card-border)] group-hover:shadow-2xl transition-all duration-500 ease-out">
+                <div className="grid lg:grid-cols-2 gap-0">
 
-                    {/* Use different layouts based on image availability, here assuming image is always present or fallback */}
-                    <div className="md:col-span-8 relative h-[400px] md:h-[500px] overflow-hidden">
+                    {/* Image Section - Equal width on large screens */}
+                    <div className="relative h-[300px] sm:h-[400px] lg:h-[550px] overflow-hidden">
                         {post.coverImage ? (
                             <img
                                 src={post.coverImage}
@@ -24,31 +24,34 @@ export default function FeaturedStory({ post }: FeaturedStoryProps) {
                                 <span className="text-white text-6xl font-bold opacity-20">Art</span>
                             </div>
                         )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
 
-                    <div className="md:col-span-4 p-8 md:p-12 flex flex-col justify-center bg-white relative">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Content Section - Equal width on large screens */}
+                    <div className="p-8 sm:p-10 lg:p-14 flex flex-col justify-center bg-white relative">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                         {post.tags && post.tags.length > 0 && (
-                            <span className="text-xs font-bold tracking-wider uppercase text-[#0071e3] mb-3">
+                            <span className="inline-block text-xs font-bold tracking-wider uppercase text-white bg-[#0071e3] px-3 py-1 rounded-full mb-4 w-fit">
                                 {post.tags[0]}
                             </span>
                         )}
 
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-[var(--foreground)] mb-4 group-hover:text-[#0071e3] transition-colors">
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight leading-[1.15] text-[var(--foreground)] mb-5 group-hover:text-[#0071e3] transition-colors">
                             {post.title}
                         </h2>
 
                         {post.excerpt && (
-                            <p className="text-[var(--muted)] text-lg leading-relaxed mb-6 line-clamp-3">
+                            <p className="text-[var(--muted)] text-base sm:text-lg leading-relaxed mb-6 line-clamp-4">
                                 {post.excerpt}
                             </p>
                         )}
 
-                        <div className="flex items-center text-sm font-medium text-[var(--muted)] mt-auto">
-                            <span className="text-[var(--foreground)]">{post.author || 'Yuval Avidani'}</span>
+                        <div className="flex items-center text-sm font-medium text-[var(--muted)] mt-auto pt-4 border-t border-[var(--card-border)]">
+                            <span className="text-[var(--foreground)] font-semibold">{post.author || 'Yuval Avidani'}</span>
                             <span className="mx-2">•</span>
                             <span>{post.date}</span>
+                            <span className="ml-auto text-[#0071e3] group-hover:translate-x-1 transition-transform duration-300">Read →</span>
                         </div>
                     </div>
                 </div>
