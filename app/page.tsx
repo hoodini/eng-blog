@@ -7,7 +7,7 @@ export default async function Home() {
   const posts = await getAllPosts();
 
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-[#f5f5f7]">
       <Hero />
       <PostGrid posts={posts} />
       <Footer />

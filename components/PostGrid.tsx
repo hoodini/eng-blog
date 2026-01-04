@@ -19,72 +19,53 @@ export default function PostGrid({ posts }: PostGridProps) {
     : posts.filter(post => post.tags?.includes(selectedTag.toLowerCase()));
 
   return (
-    <section id="articles" className="relative py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="gradient-text">Latest Articles</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Deep dives into AI, automation, and cutting-edge development
-          </p>
-        </motion.div>
+    <section id="articles" className="relative py-20 px-6 sm:px-8 max-w-7xl mx-auto">
 
-        {/* Tag Filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap items-center justify-center gap-3 mb-12"
-        >
-          {tags.map((tag) => (
-            <button
-              key={tag}
-              onClick={() => setSelectedTag(tag)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedTag === tag
-                  ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
-                  : 'glass-effect hover:bg-white/10'
-              }`}
-            >
-              {tag}
-            </button>
-          ))}
-        </motion.div>
+      {/* Header - Left Aligned, Clean */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-16 gap-8 border-b border-[#d2d2d7] pb-8">
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#1d1d1f] tracking-tight">
+          Latest Stories
+        </h2>
 
-        {/* Posts Grid */}
-        {filteredPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map((post, index) => (
-              <motion.div
-                key={post.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+        {/* Minimal Scrollable Tags */}
+        <div className="overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+          <div className="flex gap-2">
+            {tags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setSelectedTag(tag)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${selectedTag === tag
+                    ? 'bg-[#1d1d1f] text-white'
+                    : 'text-[#86868b] hover:text-[#1d1d1f] hover:bg-[#e8e8ed]'
+                  }`}
               >
-                <PostCard post={post} />
-              </motion.div>
+                {tag}
+              </button>
             ))}
           </div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
-          >
-            <p className="text-gray-400 text-lg">No articles found with this tag.</p>
-          </motion.div>
-        )}
+        </div>
       </div>
+
+      {/* Posts Grid */}
+      {filteredPosts.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+          {filteredPosts.map((post, index) => (
+            <motion.div
+              key={post.slug}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+            >
+              <PostCard post={post} featured={index === 0 && selectedTag === 'All'} />
+            </motion.div>
+          ))}
+        </div>
+      ) : (
+        <div className="py-32 text-center">
+          <p className="text-[#86868b] text-lg">No stories found for this category.</p>
+        </div>
+      )}
     </section>
   );
 }
