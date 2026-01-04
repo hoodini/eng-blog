@@ -9,7 +9,7 @@ To publish posts automatically from Make.com, use the built-in API endpoint.
 1.  **Create a Scenario**: Add a new module.
 2.  **Select Module**: Search for **HTTP** and select **Make a request**.
 3.  **Configuration**:
-    *   **URL**: `https://en.yuv.ai/api/publish` (once domain is connected) OR `https://your-vercel-project.vercel.app/api/publish`
+    *   **URL**: `https://en-blog.yuv.ai/api/publish` (once domain is connected) OR `https://your-vercel-project.vercel.app/api/publish`
     *   **Method**: `POST`
     *   **Headers**:
         *   Name: `x-api-key`
@@ -39,19 +39,19 @@ Ensure you have set the `PUBLISH_SECRET` environment variable in your Vercel pro
 
 ---
 
-## 2. Setting up Custom Domain (en.yuv.ai)
+## 2. Setting up Custom Domain (en-blog.yuv.ai)
 
-To serve the blog at `en.yuv.ai`:
+To serve the blog at `en-blog.yuv.ai`:
 
 1.  **Vercel Dashboard**:
     *   Go to your Project > **Settings** > **Domains**.
-    *   Enter `en.yuv.ai` in the input field and click **Add**.
+    *   Enter `en-blog.yuv.ai` in the input field and click **Add**.
 
 2.  **DNS Configuration** (at your Domain Registrar):
     *   Login to where you bought `yuv.ai` (e.g., GoDaddy, Namecheap, Cloudflare).
     *   Add a **CNAME Record**:
         *   **Type**: `CNAME`
-        *   **Name (Host)**: `en`
+        *   **Name (Host)**: `en-blog`
         *   **Value (Target)**: `cname.vercel-dns.com`
         *   **TTL**: Automatic or 3600
 
