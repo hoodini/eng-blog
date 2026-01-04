@@ -1,7 +1,9 @@
 {
-  "name": "eng-blog-temp",
-  "version": "0.1.0",
+  "name": "yuval-avidani-blog",
+  "version": "1.0.0",
   "private": true,
+  "description": "AI, Automation & Code insights from Yuval Avidani",
+  "author": "Yuval Avidani <https://yuv.ai>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,9 +11,17 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.23.26",
+    "gray-matter": "^4.0.3",
+    "isomorphic-dompurify": "^2.35.0",
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-icons": "^5.5.0",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
