@@ -32,6 +32,7 @@ export default function Footer() {
           <div className="flex gap-6">
             <FooterLink href="https://yuv.ai">Portfolio</FooterLink>
             <FooterLink href="https://agents.yuv.ai">Course</FooterLink>
+            <FooterLink href="https://github.com/hoodini/eng-blog">Open Source</FooterLink>
             <FooterLink href="/rss">RSS</FooterLink>
           </div>
         </div>

@@ -1,39 +1,55 @@
-# Yuval Avidani's Blog
+# 10x AI Newsroom
 
-> **AI, Automation & Code** - Insights from an AWS GenAI Superstar & GitHub Star
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/hoodini/eng-blog)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black.svg)](https://nextjs.org/)
 
-A stunning, fully automated blog built with Next.js, featuring Apple Newsroom-style design and automated publishing via Make.com.
+A modern, Apple-inspired AI blog platform with automated content publishing via Make.com. Built with Next.js 16, TypeScript, and Tailwind CSS.
 
-![Next.js](https://img.shields.io/badge/Next.js-16.1-black?logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38bdf8?logo=tailwindcss)
-![License](https://img.shields.io/badge/License-MIT-green)
+**🌐 Live Demo:** [en-blog.yuv.ai](https://en-blog.yuv.ai)
+
+**👤 Created by:** [Yuval Avidani](https://yuv.ai) - AI Builder & Speaker
+
+---
+
+## 📸 Screenshots
+
+### Desktop View
+![Desktop Screenshot](public/images/screenshot-desktop.png)
+
+### Mobile View
+![Mobile Screenshot](public/images/screenshot-mobile.png)
+
+---
 
 ## ✨ Features
 
-- **Apple Newsroom-Style Design** - Stunning, premium UI with smooth animations
-- **100% Mobile Responsive** - Perfect experience on all devices
-- **Automated Publishing** - Webhook integration with Make.com
-- **Zero Backend Needed** - Markdown files as database
-- **Tag Filtering** - AI, Automation, Code, AWS, GenAI, Tutorials
-- **SEO Optimized** - Meta tags, Open Graph, Twitter Cards
-- **Fast & Secure** - Static generation, DOMPurify sanitization
-- **Free Hosting** - Deploy to Vercel with zero cost
+- **🎨 Apple-Inspired Design** - Clean, modern UI with premium aesthetics
+- **🤖 Make.com Integration** - Automated blog posting via webhook API
+- **📝 Markdown Support** - Write posts in Markdown with full formatting
+- **🏷️ Tag System** - Organize posts with customizable tags
+- **📱 Fully Responsive** - Optimized for desktop, tablet, and mobile
+- **⚡ Fast Performance** - Static generation with Next.js for blazing speed
+- **🔒 Secure API** - Rate-limited publish endpoint with API key authentication
+- **🌙 GitHub Integration** - Posts are committed directly to the repository
+
+---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18+ installed
-- npm or yarn package manager
+- Node.js 18+
+- npm or yarn
 - GitHub account
-- Vercel account (free)
+- Vercel account (for deployment)
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/eng-blog.git
+   git clone https://github.com/hoodini/eng-blog.git
    cd eng-blog
    ```
 
@@ -42,190 +58,187 @@ A stunning, fully automated blog built with Next.js, featuring Apple Newsroom-st
    npm install
    ```
 
-3. **Set up environment variables**
+3. **Create environment file**
    ```bash
    cp .env.local.example .env.local
    ```
 
-   Edit `.env.local` and add your secret:
-   ```env
-   PUBLISH_SECRET=your-super-secret-key-here
-   ```
+4. **Configure environment variables** (see [Configuration](#configuration))
 
-4. **Run development server**
+5. **Run the development server**
    ```bash
    npm run dev
    ```
 
-   Open [http://localhost:3000](http://localhost:3000)
+6. **Open** [http://localhost:3000](http://localhost:3000)
 
-## 📝 Creating Posts
-
-### Manual Method
-
-Create a new markdown file in the `posts/` directory:
-
-```markdown
----
-title: 'Your Amazing Post Title'
-date: '2025-01-04'
-excerpt: 'A brief description of your post'
-coverImage: '/images/your-image.jpg'
-tags:
-  - ai
-  - automation
-  - code
-author: Yuval Avidani
 ---
 
-# Your Content Here
+## ⚙️ Configuration
 
-Write your post content in Markdown format...
+Create a `.env.local` file with the following variables:
+
+```env
+# API Security
+PUBLISH_SECRET=your-secure-api-key-here
+
+# GitHub Integration (for automated publishing)
+GITHUB_TOKEN=your-github-personal-access-token
+GITHUB_OWNER=your-github-username
+GITHUB_REPO=eng-blog
+GITHUB_BRANCH=master
 ```
 
-### Automated Method (Make.com)
+### Getting a GitHub Token
 
-**1. Make.com Setup**
+1. Go to [GitHub Settings > Tokens](https://github.com/settings/tokens)
+2. Generate a new token (classic)
+3. Select the `repo` scope
+4. Copy and save the token
 
-Create a new scenario in Make.com:
+---
 
-```
-Trigger (Webhook/Schedule/etc.)
-  ↓
-HTTP Module → POST Request
-  URL: https://your-blog.vercel.app/api/publish
-  Headers:
-    - x-api-key: YOUR_PUBLISH_SECRET
-  Body (JSON):
-    {
-      "title": "Post Title",
-      "content": "Post content in markdown...",
-      "excerpt": "Brief description",
-      "coverImage": "https://...",
-      "tags": ["ai", "code"],
-      "date": "2025-01-04"
-    }
-```
+## 📡 API Documentation
 
-**2. API Response**
+### POST `/api/publish`
 
-Success:
+Create a new blog post programmatically.
+
+**Headers:**
+| Header | Value |
+|--------|-------|
+| `x-api-key` | Your `PUBLISH_SECRET` |
+| `Content-Type` | `application/json` |
+
+**Request Body:**
 ```json
 {
-  "success": true,
-  "slug": "post-title",
-  "url": "/posts/post-title"
+  "title": "Your Post Title",
+  "content": "# Markdown Content\n\nYour post content here...",
+  "excerpt": "Optional short summary",
+  "tags": ["ai", "automation"],
+  "coverImage": "https://example.com/image.jpg",
+  "date": "2026-01-05"
 }
 ```
 
-## 🔐 Security
-
-The blog implements multiple security layers:
-
-1. **API Authentication** - Secret token required for publishing
-2. **Rate Limiting** - Max 10 posts per hour per IP
-3. **Input Validation** - Title/content length checks
-4. **HTML Sanitization** - DOMPurify prevents XSS
-5. **Git Verification** - All changes tracked in version control
-
-### Security Best Practices
-
-- Generate a strong `PUBLISH_SECRET`:
-  ```bash
-  openssl rand -hex 32
-  ```
-- Never commit `.env.local` to Git
-- Use Vercel environment variables in production
-- Monitor API logs for suspicious activity
-
-## 🌐 Deployment
-
-### Deploy to Vercel (Recommended)
-
-1. **Push to GitHub**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Yuval Avidani's stunning AI blog"
-   git branch -M main
-   git remote add origin https://github.com/yourusername/eng-blog.git
-   git push -u origin main
-   ```
-
-2. **Deploy to Vercel**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "New Project"
-   - Import your GitHub repository
-   - Add environment variable: `PUBLISH_SECRET`
-   - Click "Deploy"
-
-3. **Configure Make.com**
-   - Update your Make.com webhook URL to: `https://your-blog.vercel.app/api/publish`
-   - Add your `PUBLISH_SECRET` to the headers
-
-### Custom Domain
-
-In Vercel dashboard:
-1. Go to Settings → Domains
-2. Add your custom domain
-3. Update DNS records as instructed
-
-## 📊 Architecture
-
-```
-┌─────────────────┐
-│   Make.com      │  (Content Pipeline)
-│   Automation    │
-└────────┬────────┘
-         │ POST /api/publish
-         ↓
-┌─────────────────────────┐
-│  Next.js API Route      │  (Webhook Handler)
-│  - Auth Check           │
-│  - Rate Limiting        │
-│  - Input Validation     │
-└────────┬────────────────┘
-         │ Create .md file
-         ↓
-┌─────────────────────────┐
-│  GitHub Repository      │  (Version Control)
-│  /posts/*.md files      │
-└────────┬────────────────┘
-         │ Auto Deploy
-         ↓
-┌─────────────────────────┐     ┌──────────────┐
-│  Vercel (Production)    │────→│   Hoodini    │
-│  - Static Generation    │     │   (GitHub)   │
-│  - Global CDN           │     └──────────────┘
-└─────────────────────────┘
+**Response:**
+```json
+{
+  "success": true,
+  "slug": "your-post-title",
+  "message": "Post published successfully! Site will redeploy shortly.",
+  "url": "/posts/2026-01-05-your-post-title"
+}
 ```
 
-## 📦 Tech Stack
+### GET `/api/publish`
 
-- **Framework**: [Next.js 16](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Markdown**: [remark](https://github.com/remarkjs/remark) + [gray-matter](https://github.com/jonschlinkert/gray-matter)
-- **Security**: [DOMPurify](https://github.com/cure53/DOMPurify)
-- **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
-- **Deployment**: [Vercel](https://vercel.com)
-- **Automation**: [Make.com](https://make.com)
+Health check endpoint.
+
+```json
+{
+  "status": "ok",
+  "message": "Publish API is running",
+  "timestamp": "2026-01-05T00:00:00.000Z"
+}
+```
+
+---
+
+## 🔄 Make.com Integration
+
+This blog is designed to work seamlessly with [Make.com](https://make.com) for automated content publishing.
+
+### Setup Steps
+
+1. **Create a new scenario** in Make.com
+2. **Add an HTTP module** with these settings:
+   - **URL:** `https://en-blog.yuv.ai/api/publish`
+   - **Method:** `POST`
+   - **Headers:**
+     - `x-api-key`: Your secret key
+     - `Content-Type`: `application/json`
+   - **Body:** JSON with your content
+
+See [docs/AUTOMATION_GUIDE.md](docs/AUTOMATION_GUIDE.md) for detailed instructions.
+
+---
+
+## 🏗️ Project Structure
+
+```
+eng-blog/
+├── app/
+│   ├── api/
+│   │   └── publish/          # Publish API endpoint
+│   ├── posts/
+│   │   └── [slug]/           # Dynamic post pages
+│   ├── about/                # About page
+│   ├── globals.css           # Global styles
+│   ├── layout.tsx            # Root layout
+│   └── page.tsx              # Homepage
+├── components/
+│   ├── Navigation.tsx        # Header navigation
+│   ├── Footer.tsx            # Site footer
+│   ├── PostCard.tsx          # Post preview card
+│   ├── PostGrid.tsx          # Posts grid layout
+│   └── ...
+├── lib/
+│   └── posts.ts              # Post utilities
+├── posts/                    # Markdown blog posts
+├── public/
+│   └── images/               # Static images
+└── docs/
+    └── AUTOMATION_GUIDE.md   # Make.com setup guide
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org/) with App Router
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
+- **Deployment:** [Vercel](https://vercel.com/)
+- **Content:** Markdown with [gray-matter](https://github.com/jonschlinkert/gray-matter)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
 
 ## 👤 Author
 
 **Yuval Avidani**
 
 - Website: [yuv.ai](https://yuv.ai)
-- Twitter: [@yuvalav](https://x.com/yuvalav)
+- Twitter: [@yuvalav](https://twitter.com/yuvalav)
 - GitHub: [@hoodini](https://github.com/hoodini)
-- YouTube: [@yuv-ai](https://youtube.com/@yuv-ai)
-- All Links: [linktr.ee/yuvai](https://linktr.ee/yuvai)
-
-AWS GenAI Superstar ⭐ GitHub Star ⭐ 20+ Years in Tech
+- LinkedIn: [Yuval Avidani](https://linkedin.com/in/yuval-avidani)
 
 ---
 
-**Built with ❤️ by Yuval Avidani**
+## 🤝 Contributing
 
-*From vibe coding to production-ready solutions*
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/hoodini/eng-blog/issues).
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## ⭐ Show Your Support
+
+Give a ⭐ if this project helped you!
+
+---
+
+*Built with ❤️ by [Yuval Avidani](https://yuv.ai)*
