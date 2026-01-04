@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+/* Cache bust: v2 */
+
 @theme {
   --font-sans: var(--font-inter);
   --color-background: #000000;
