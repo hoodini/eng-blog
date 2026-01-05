@@ -139,6 +139,12 @@ function htmlToMarkdown(html: string): string {
   return turndownService.turndown(html);
 }
 
+// Check if content looks like HTML
+function isHtmlContent(content: string): boolean {
+  // Check for common HTML tags
+  return /<(p|h[1-6]|div|span|a|ul|ol|li|strong|em|br)\b/i.test(content);
+}
+
 // Extract post data from different formats
 function extractPostData(body: any): {
   title: string;
@@ -150,9 +156,14 @@ function extractPostData(body: any): {
 } | null {
   // Format 1: Direct format (title, content in root)
   if (body.title && body.content) {
+    // Convert HTML to Markdown if content looks like HTML
+    const content = isHtmlContent(body.content) 
+      ? htmlToMarkdown(body.content) 
+      : body.content;
+    
     return {
       title: body.title,
-      content: body.content,
+      content,
       excerpt: body.excerpt,
       coverImage: body.coverImage,
       tags: body.tags,
