@@ -39,10 +39,14 @@ function createMarkdownContent(postData: {
 }): string {
   // Strip HTML from excerpt and create clean plain text
   const rawExcerpt = postData.excerpt || postData.content.slice(0, 300);
-  const cleanExcerpt = stripHtml(rawExcerpt).slice(0, 160) + '...';
+  const cleanExcerpt = stripHtml(rawExcerpt)
+    .replace(/[\r\n]+/g, ' ') // Remove newlines that break YAML
+    .slice(0, 160) + '...';
   
-  // Escape quotes for YAML
-  const escapedTitle = postData.title.replace(/"/g, '\\"');
+  // Escape quotes and remove newlines for YAML safety
+  const escapedTitle = postData.title
+    .replace(/[\r\n]+/g, ' ')
+    .replace(/"/g, '\\"');
   const escapedExcerpt = cleanExcerpt.replace(/"/g, '\\"');
   
   const frontmatter = `---
@@ -145,6 +149,20 @@ function isHtmlContent(content: string): boolean {
   return /<(p|h[1-6]|div|span|a|ul|ol|li|strong|em|br)\b/i.test(content);
 }
 
+// Normalize tags - handle both string arrays and Ghost tag objects
+function normalizeTags(tags: any): string[] {
+  if (!tags || !Array.isArray(tags)) return [];
+  
+  return tags
+    .map((tag: any) => {
+      if (typeof tag === 'string') return tag;
+      if (tag && typeof tag === 'object' && tag.name) return tag.name;
+      if (tag && typeof tag === 'object' && tag.slug) return tag.slug;
+      return null;
+    })
+    .filter((tag): tag is string => tag !== null);
+}
+
 // Extract post data from different formats
 function extractPostData(body: any): {
   title: string;
@@ -165,8 +183,8 @@ function extractPostData(body: any): {
       title: body.title,
       content,
       excerpt: body.excerpt,
-      coverImage: body.coverImage,
-      tags: body.tags,
+      coverImage: body.coverImage || body.cover_image || body.feature_image,
+      tags: normalizeTags(body.tags),
       slug: body.slug,
     };
   }
@@ -174,24 +192,28 @@ function extractPostData(body: any): {
   // Format 2: Make.com format with jsonResponse.ghost
   if (body.jsonResponse?.ghost) {
     const ghost = body.jsonResponse.ghost;
+    const rawContent = ghost.html || ghost.content || '';
+    const content = isHtmlContent(rawContent) ? htmlToMarkdown(rawContent) : rawContent;
     return {
       title: ghost.title,
-      content: ghost.html ? htmlToMarkdown(ghost.html) : '',
-      excerpt: ghost.custom_excerpt,
-      coverImage: ghost.cover_image || ghost.coverImage,
-      tags: ghost.tags,
+      content,
+      excerpt: ghost.custom_excerpt || ghost.excerpt,
+      coverImage: ghost.cover_image || ghost.coverImage || ghost.feature_image,
+      tags: normalizeTags(ghost.tags),
       slug: ghost.slug,
     };
   }
 
   // Format 3: Nested ghost object
   if (body.ghost) {
+    const rawContent = body.ghost.html || body.ghost.content || '';
+    const content = isHtmlContent(rawContent) ? htmlToMarkdown(rawContent) : rawContent;
     return {
       title: body.ghost.title,
-      content: body.ghost.html ? htmlToMarkdown(body.ghost.html) : '',
-      excerpt: body.ghost.custom_excerpt,
-      coverImage: body.ghost.cover_image || body.ghost.coverImage,
-      tags: body.ghost.tags,
+      content,
+      excerpt: body.ghost.custom_excerpt || body.ghost.excerpt,
+      coverImage: body.ghost.cover_image || body.ghost.coverImage || body.ghost.feature_image,
+      tags: normalizeTags(body.ghost.tags),
       slug: body.ghost.slug,
     };
   }
