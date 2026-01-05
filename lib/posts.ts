@@ -23,6 +23,39 @@ if (!fs.existsSync(postsDirectory)) {
   fs.mkdirSync(postsDirectory, { recursive: true });
 }
 
+// Helper to strip date prefix from filename (e.g., "2026-01-05-my-post" -> "my-post")
+function stripDatePrefix(filename: string): { slug: string; hasDatePrefix: boolean } {
+  const datePattern = /^(\d{4}-\d{2}-\d{2})-(.+)$/;
+  const match = filename.match(datePattern);
+  if (match) {
+    return { slug: match[2], hasDatePrefix: true };
+  }
+  return { slug: filename, hasDatePrefix: false };
+}
+
+// Find the actual filename for a given slug (handles both date-prefixed and plain filenames)
+export function findPostFile(slug: string): string | null {
+  const fileNames = fs.readdirSync(postsDirectory);
+  
+  // First, try exact match
+  if (fileNames.includes(`${slug}.md`)) {
+    return `${slug}.md`;
+  }
+  
+  // Then, look for date-prefixed files that match the slug
+  for (const fileName of fileNames) {
+    if (fileName.endsWith('.md')) {
+      const baseName = fileName.replace(/\.md$/, '');
+      const { slug: strippedSlug } = stripDatePrefix(baseName);
+      if (strippedSlug === slug) {
+        return fileName;
+      }
+    }
+  }
+  
+  return null;
+}
+
 export async function getAllPosts(): Promise<Post[]> {
   try {
     const fileNames = fs.readdirSync(postsDirectory);
@@ -30,7 +63,8 @@ export async function getAllPosts(): Promise<Post[]> {
       fileNames
         .filter((fileName) => fileName.endsWith('.md'))
         .map(async (fileName) => {
-          const slug = fileName.replace(/\.md$/, '');
+          const baseName = fileName.replace(/\.md$/, '');
+          const { slug, hasDatePrefix } = stripDatePrefix(baseName);
           const fullPath = path.join(postsDirectory, fileName);
           const fileContents = fs.readFileSync(fullPath, 'utf8');
           const { data, content } = matter(fileContents);
@@ -49,12 +83,25 @@ export async function getAllPosts(): Promise<Post[]> {
             tags: data.tags || [],
             author: data.author || 'Yuval Avidani',
             readingTime,
+            _hasDatePrefix: hasDatePrefix, // Internal flag for sorting
           };
         })
     );
 
     // Sort posts by date (newest first)
-    return allPostsData.sort((a, b) => (a.date > b.date ? -1 : 1));
+    // For posts with same date, prioritize date-prefixed files (from automation) as they are newer
+    return allPostsData.sort((a, b) => {
+      if (a.date !== b.date) {
+        return a.date > b.date ? -1 : 1;
+      }
+      // For same dates, prefer date-prefixed files (automated posts)
+      const aHasDatePrefix = (a as any)._hasDatePrefix;
+      const bHasDatePrefix = (b as any)._hasDatePrefix;
+      if (aHasDatePrefix && !bHasDatePrefix) return -1;
+      if (!aHasDatePrefix && bHasDatePrefix) return 1;
+      // If both have or both lack date prefix, sort by slug descending
+      return a.slug > b.slug ? -1 : 1;
+    });
   } catch (error) {
     console.error('Error reading posts:', error);
     return [];
@@ -63,7 +110,11 @@ export async function getAllPosts(): Promise<Post[]> {
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
-    const fullPath = path.join(postsDirectory, `${slug}.md`);
+    const fileName = findPostFile(slug);
+    if (!fileName) {
+      return null;
+    }
+    const fullPath = path.join(postsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
