@@ -37,10 +37,18 @@ function createMarkdownContent(postData: {
   tags?: string[];
   date: string;
 }): string {
+  // Strip HTML from excerpt and create clean plain text
+  const rawExcerpt = postData.excerpt || postData.content.slice(0, 300);
+  const cleanExcerpt = stripHtml(rawExcerpt).slice(0, 160) + '...';
+  
+  // Escape quotes for YAML
+  const escapedTitle = postData.title.replace(/"/g, '\\"');
+  const escapedExcerpt = cleanExcerpt.replace(/"/g, '\\"');
+  
   const frontmatter = `---
-title: "${postData.title.replace(/"/g, '\\"')}"
+title: "${escapedTitle}"
 date: "${postData.date}"
-excerpt: "${(postData.excerpt || postData.content.slice(0, 160) + '...').replace(/"/g, '\\"')}"
+excerpt: "${escapedExcerpt}"
 coverImage: "${postData.coverImage || ''}"
 tags: [${(postData.tags || []).map(t => `"${t}"`).join(', ')}]
 author: "Yuval Avidani"
@@ -93,6 +101,20 @@ async function createGitHubFile(
     console.error('GitHub API request failed:', error);
     return { success: false, error: 'Failed to connect to GitHub API' };
   }
+}
+
+// Strip HTML tags and get plain text for excerpts
+function stripHtml(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, '') // Remove HTML tags
+    .replace(/&nbsp;/g, ' ') // Replace &nbsp;
+    .replace(/&amp;/g, '&') // Replace &amp;
+    .replace(/&lt;/g, '<') // Replace &lt;
+    .replace(/&gt;/g, '>') // Replace &gt;
+    .replace(/&quot;/g, '"') // Replace &quot;
+    .replace(/&#39;/g, "'") // Replace &#39;
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
 }
 
 // Convert HTML to Markdown
