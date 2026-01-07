@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer';
 import AuthorCard from '@/components/AuthorCard';
 import Image from 'next/image';
-import { FaGithub, FaAws, FaRocket, FaMicrophone, FaCode, FaBrain } from 'react-icons/fa';
+import { FaGithub, FaAws, FaRocket, FaMicrophone, FaCode, FaBrain, FaStar, FaUsers, FaGraduationCap } from 'react-icons/fa';
 
 export const metadata = {
   title: 'About | Yuval Avidani',
@@ -103,14 +103,36 @@ export default function AboutPage() {
                 creating production-ready solutions that make a real impact.
               </p>
               <p>
-                My work includes projects like <strong className="text-white">AutoCap</strong> (AI-powered image captioning using Florence-2),
-                the <strong className="text-white">AI Agents 101</strong> interactive training platform, and numerous open-source contributions
-                across various domains including generative AI, automation, and developer tools.
+                I train developers worldwide to build production AI systems through hands-on workshops and courses.
+                My ability to break down complex AI architecture into practical skills has helped teams from
+                startups to enterprises like <strong className="text-white">NICE</strong>, where I led a global AI learning event
+                for <strong className="text-white">1,000+ employees</strong> worldwide.
               </p>
               <p>
-                I'm also a content creator partner with <strong className="text-white">Hailuo AI (MiniMax)</strong> & <strong className="text-white">Higgsfield</strong>, sharing
-                insights and building in public to help others learn and grow in the AI space.
+                As a content creator partner with <strong className="text-white">Hailuo AI (MiniMax)</strong> and <strong className="text-white">Higgsfield</strong>,
+                I explore the bleeding edge of AI video generation and share insights with the community.
+                I believe in building in public and making AI practical, personal, and powerful for everyone.
               </p>
+            </div>
+
+            {/* Impact Stats */}
+            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">1,000+</div>
+                <div className="text-sm text-gray-500">Developers Trained</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">110+</div>
+                <div className="text-sm text-gray-500">Open Source Projects</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">160+</div>
+                <div className="text-sm text-gray-500">GitHub Followers</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">20+</div>
+                <div className="text-sm text-gray-500">Years in Tech</div>
+              </div>
             </div>
 
             {/* What I Do Section */}
@@ -139,22 +161,59 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Notable Projects List */}
+            {/* Speaking & Training */}
             <div className="mt-20">
-              <h2 className="text-3xl font-bold text-white tracking-tight mb-10">Selected Works</h2>
-              <div className="grid gap-8">
+              <h2 className="text-3xl font-bold text-white tracking-tight mb-10 flex items-center gap-3">
+                <FaGraduationCap className="text-green-400" />
+                Speaking & Training
+              </h2>
+              <div className="space-y-6">
+                <div className="bg-neutral-900 rounded-xl p-6 border border-white/5">
+                  <div className="flex items-start gap-4">
+                    <FaUsers className="w-8 h-8 text-blue-400 flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-white mb-2">Enterprise AI Training</h3>
+                      <p className="text-gray-500 text-sm leading-relaxed">
+                        Led global AI learning events for enterprise teams, teaching hands-on skills from ideation to deployment—
+                        covering web apps, presentations, dashboards, and interactive podcasts using cutting-edge AI tools.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-neutral-900 rounded-xl p-6 border border-white/5">
+                  <div className="flex items-start gap-4">
+                    <FaStar className="w-8 h-8 text-yellow-400 flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-white mb-2">AWS & GitHub Expert</h3>
+                      <p className="text-gray-500 text-sm leading-relaxed">
+                        Collaborating with AWS GenAI/ML teams on vibe coding workshops, exploring Nova Act models,
+                        MCP agent development, and Q Developer. Regular speaker at tech conferences and community events.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Top Projects */}
+            <div className="mt-20">
+              <h2 className="text-3xl font-bold text-white tracking-tight mb-10">Top Projects</h2>
+              <div className="grid gap-6">
                 <a
-                  href="https://github.com/hoodini/autocap"
+                  href="https://github.com/hoodini/yuv-ai-trends"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block group border-b border-white/10 pb-8 hover:border-white/30 transition-colors"
+                  className="block group bg-neutral-900 rounded-xl p-6 border border-white/5 hover:border-white/20 transition-all"
                 >
-                  <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-2">
-                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">AutoCap</h3>
-                    <span className="text-xs font-mono text-gray-600 uppercase tracking-widest">Open Source</span>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">YUV.AI Trends</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="flex items-center gap-1 text-yellow-400 text-sm"><FaStar /> 92</span>
+                      <span className="text-xs font-mono text-gray-600 uppercase tracking-widest">Open Source</span>
+                    </div>
                   </div>
                   <p className="text-gray-500">
-                    AI-powered image captioning for LoRA training using Microsoft's Florence-2-large vision-language model.
+                    Beautiful Gen AI & ML news aggregator—stay on top of the latest developments in AI with a curated feed.
                   </p>
                 </a>
 
@@ -162,29 +221,65 @@ export default function AboutPage() {
                   href="https://agents.yuv.ai"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block group border-b border-white/10 pb-8 hover:border-white/30 transition-colors"
+                  className="block group bg-neutral-900 rounded-xl p-6 border border-white/5 hover:border-white/20 transition-all"
                 >
-                  <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-2">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
                     <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">AI Agents 101</h3>
                     <span className="text-xs font-mono text-gray-600 uppercase tracking-widest">Educational Platform</span>
                   </div>
                   <p className="text-gray-500">
-                    Interactive training platform covering LLMs, tools, memory, RAG, and multi-agent systems.
+                    Interactive training platform with hands-on labs covering LLMs, tools, memory, RAG, and multi-agent systems.
                   </p>
                 </a>
 
                 <a
-                  href="https://yuv.ai"
+                  href="https://github.com/hoodini/nano-banana-ui"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block group border-b border-white/10 pb-8 hover:border-white/30 transition-colors"
+                  className="block group bg-neutral-900 rounded-xl p-6 border border-white/5 hover:border-white/20 transition-all"
                 >
-                  <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-2">
-                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">YUV.AI Platform</h3>
-                    <span className="text-xs font-mono text-gray-600 uppercase tracking-widest">SaaS</span>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">Nano Banana UI</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="flex items-center gap-1 text-yellow-400 text-sm"><FaStar /> 18</span>
+                      <span className="text-xs font-mono text-gray-600 uppercase tracking-widest">Open Source</span>
+                    </div>
                   </div>
                   <p className="text-gray-500">
-                    Generative AI platform unlocking real value through innovative AI solutions.
+                    YUV.AI Nano Banana Pro—beautiful web app for Google Gemini image generation with full API feature support.
+                  </p>
+                </a>
+
+                <a
+                  href="https://github.com/hoodini/nextjs-bun-starter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group bg-neutral-900 rounded-xl p-6 border border-white/5 hover:border-white/20 transition-all"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">Next.js Bun Starter</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="flex items-center gap-1 text-yellow-400 text-sm"><FaStar /> 15</span>
+                      <span className="text-xs font-mono text-gray-600 uppercase tracking-widest">Template</span>
+                    </div>
+                  </div>
+                  <p className="text-gray-500">
+                    The ultimate Next.js starter kit with Bun, Shadcn/ui, Tailwind CSS, and Google Authentication.
+                  </p>
+                </a>
+
+                <a
+                  href="https://github.com/hoodini/autocap"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group bg-neutral-900 rounded-xl p-6 border border-white/5 hover:border-white/20 transition-all"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">AutoCap</h3>
+                    <span className="text-xs font-mono text-gray-600 uppercase tracking-widest">AI Tool</span>
+                  </div>
+                  <p className="text-gray-500">
+                    AI-powered image captioning for LoRA training using Microsoft's Florence-2-large vision-language model.
                   </p>
                 </a>
               </div>
