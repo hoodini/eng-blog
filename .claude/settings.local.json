@@ -18,7 +18,12 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(openssl rand:*)",
-      "Bash(if exist nul del nul)"
+      "Bash(if exist nul del nul)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(git restore:*)"
     ]
   }
 }
