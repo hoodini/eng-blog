@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import AuthorCard from '@/components/AuthorCard';
 import DOMPurify from 'isomorphic-dompurify';
 import ScrollProgress from '@/components/ScrollProgress';
 
@@ -140,6 +141,13 @@ export default async function PostPage({ params }: PostPageProps) {
               prose-li:marker:text-[var(--muted)]"
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
+          {/* Author Card */}
+          <div className="mt-16 pt-12 border-t border-[var(--card-border)]">
+            <p className="text-sm font-semibold text-[var(--muted)] uppercase tracking-widest mb-6">
+              Written by
+            </p>
+            <AuthorCard />
+          </div>
         </div>
       </article>
       <Footer />
